@@ -1,5 +1,23 @@
 import { cn } from '../lib/utils'
 
+/**
+ * Preview documents are rendered from `srcdoc`, so relative URLs would
+ * otherwise resolve against the lesson route. A root-relative <base> makes
+ * examples such as `images/photo.jpg` load from the site root in both the
+ * dev server and production.
+ */
+function withRootBase(code: string): string {
+  if (/<base\b/i.test(code)) return code
+
+  const base = '<base href="/" />'
+
+  if (/<head[^>]*>/i.test(code)) {
+    return code.replace(/<head[^>]*>/i, (match) => `${match}\n    ${base}`)
+  }
+
+  return `${base}\n${code}`
+}
+
 export function HtmlPreview({
   code,
   title,
@@ -19,7 +37,7 @@ export function HtmlPreview({
       </div>
       <iframe
         title={title}
-        srcDoc={code}
+        srcDoc={withRootBase(code)}
         sandbox=""
         referrerPolicy="no-referrer"
         className="min-h-0 w-full flex-1 border-0 bg-white"

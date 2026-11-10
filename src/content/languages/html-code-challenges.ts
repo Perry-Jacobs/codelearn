@@ -750,12 +750,12 @@ export const htmlCodeChallenges: Record<string, CodeChallengeSection[]> = {
       title: 'Build a captioned video',
       instructions: 'Add a video with controls, an MP4 source, and English captions.',
       prompt:
-        'Create a video with controls, a source src="lesson.mp4" type="video/mp4", and a track with kind="captions", src="lesson-en.vtt", srclang="en", label="English captions", and default.',
+        'Create a video with controls, a source src="/media/lesson.mp4" type="video/mp4", and a track with kind="captions", src="/media/lesson-en.vtt", srclang="en", label="English captions", and default.',
       starterCode: '<!-- Build a captioned video -->\n',
       language: 'html',
       solution: `<video controls>
-  <source src="lesson.mp4" type="video/mp4">
-  <track kind="captions" src="lesson-en.vtt" srclang="en" label="English captions" default>
+  <source src="/media/lesson.mp4" type="video/mp4">
+  <track kind="captions" src="/media/lesson-en.vtt" srclang="en" label="English captions" default>
 </video>`,
       hint: 'source and track go inside video. The video element needs a closing tag.',
       checks: [
@@ -768,7 +768,7 @@ export const htmlCodeChallenges: Record<string, CodeChallengeSection[]> = {
         {
           kind: 'element',
           selector: 'video source',
-          attributes: { src: 'lesson.mp4', type: 'video/mp4' },
+          attributes: { src: '/media/lesson.mp4', type: 'video/mp4' },
           message: 'The video has an MP4 source.',
         },
         {
@@ -780,7 +780,7 @@ export const htmlCodeChallenges: Record<string, CodeChallengeSection[]> = {
         {
           kind: 'element',
           selector: 'video track',
-          attributes: { src: 'lesson-en.vtt' },
+          attributes: { src: '/media/lesson-en.vtt' },
           message: 'The track points to the captions file.',
         },
         {

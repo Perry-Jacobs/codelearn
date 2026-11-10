@@ -75,7 +75,7 @@ export const html: Language = {
           content:
             'A few elements cannot contain content, so they stand alone. `img`, `br`, `hr`, `input`, and `meta` are common examples. Writing `</img>` is invalid because there is nothing to close.',
           language: 'html',
-          code: `<img src="photo.jpg" alt="A mountain at sunrise" />
+          code: `<img src="/images/photo.jpg" alt="A mountain at sunrise" />
 <br />  <!-- a line break -->
 <hr />  <!-- a thematic divider -->`,
         },
@@ -909,7 +909,7 @@ console.log(name);</code></pre>
           content:
             'The `src` attribute is the image path. It can be relative to the current page or a full URL. The browser downloads the file and draws it in the page.',
           language: 'html',
-          code: `<img src="images/mountains.jpg" alt="Snow-covered mountains" />
+          code: `<img src="/images/mountains.jpg" alt="Snow-covered mountains" />
 <!-- src = where the image file lives -->`,
         },
         {
@@ -919,7 +919,7 @@ console.log(name);</code></pre>
             '`alt` is the alternative text. Screen readers announce it, and browsers show it if the image fails. Describe the content and purpose, not the filename. Use `alt=""` only when the image is purely decorative.',
           language: 'html',
           code: `<img
-  src="images/chart.png"
+  src="/images/chart.png"
   alt="Bar chart showing sales rising from January to June"
 />
 <!-- Good alt text explains what the image communicates. -->`,
@@ -931,7 +931,7 @@ console.log(name);</code></pre>
             'The `width` and `height` attributes give the browser the image’s aspect ratio before it loads. This prevents the page from jumping as images appear. CSS can still resize the image responsively.',
           language: 'html',
           code: `<img
-  src="images/photo.jpg"
+  src="/images/photo.jpg"
   alt="A hiker on a mountain trail"
   width="800"
   height="600"
@@ -945,7 +945,7 @@ console.log(name);</code></pre>
             'A `figure` groups an image with a visible caption. `figcaption` holds the caption text. The caption is not a replacement for alt text: alt serves assistive technology, while figcaption is visible to everyone.',
           language: 'html',
           code: `<figure>
-  <img src="images/bridge.jpg" alt="A steel bridge at sunset" />
+  <img src="/images/bridge.jpg" alt="A steel bridge at sunset" />
   <figcaption>The bridge at sunset, photographed in June.</figcaption>
 </figure>`,
         },
@@ -956,8 +956,8 @@ console.log(name);</code></pre>
             '`srcset` lets the browser choose a smaller or larger file based on screen size and resolution. The `picture` element chooses between entirely different crops or formats. The browser makes the final choice, not you.',
           language: 'html',
           code: `<picture>
-  <source media="(min-width: 800px)" srcset="hero-wide.jpg" />
-  <img src="hero-small.jpg" alt="A wide mountain landscape" />
+  <source media="(min-width: 800px)" srcset="/images/mountains-wide.jpg" />
+  <img src="/images/mountains-small.jpg" alt="A wide mountain landscape" />
 </picture>
 <!-- Wide screens get the wide crop; phones get the small file. -->`,
         },
@@ -968,12 +968,12 @@ console.log(name);</code></pre>
             'The right alt text changes with context. A chart needs a summary of the data, a linked logo needs the link destination, and a purely decorative divider needs `alt=""` so screen readers skip it. Ask what the image communicates in this place, not what file it came from.',
           language: 'html',
           code: `<img
-  src="/images/sales-chart.png"
+  src="/images/chart.png"
   alt="Sales rose from 10 in January to 25 in June"
 />
 
 <a href="/">
-  <img src="/images/logo.svg" alt="CodeLearn home" />
+  <img src="/favicon.svg" alt="CodeLearn home" />
 </a>
 
 <img src="/images/divider.svg" alt="" />
@@ -986,15 +986,15 @@ console.log(name);</code></pre>
             'Images below the visible area do not need to download immediately. Add `loading="lazy"` to let the browser wait until they are near the viewport, and `decoding="async"` to avoid blocking the page while the image is decoded. Keep the main hero image eager so the top of the page appears quickly.',
           language: 'html',
           code: `<img
-  src="/images/hero.jpg"
-  alt="Students working together at a table"
-  width="1200"
+  src="/images/photo.jpg"
+  alt="A hiker on a mountain trail"
+  width="800"
   height="600"
 />
 
 <img
-  src="/images/gallery-1.jpg"
-  alt="A close-up of a laptop showing HTML code"
+  src="/images/bridge.jpg"
+  alt="A steel bridge at sunset"
   width="600"
   height="400"
   loading="lazy"
@@ -2200,7 +2200,7 @@ console.log(name);</code></pre>
           content:
             'The `video` element embeds a video. `src` points to the file, and `controls` shows the play, pause, and volume controls. Without `controls`, the user may have no way to start playback.',
           language: 'html',
-          code: `<video src="intro.mp4" controls width="640">
+          code: `<video src="/media/lesson.mp4" controls width="640">
   Your browser does not support the video element.
 </video>
 <!-- controls adds the browser's playback interface. -->`,
@@ -2212,8 +2212,8 @@ console.log(name);</code></pre>
             'Different browsers support different video formats. Use `source` elements inside `video` to offer alternatives. The browser picks the first format it can play. The text inside `video` is a fallback for very old browsers.',
           language: 'html',
           code: `<video controls width="640">
-  <source src="intro.webm" type="video/webm" />
-  <source src="intro.mp4" type="video/mp4" />
+  <source src="/media/lesson.webm" type="video/webm" />
+  <source src="/media/lesson.mp4" type="video/mp4" />
   Your browser cannot play this video.
 </video>`,
         },
@@ -2224,8 +2224,8 @@ console.log(name);</code></pre>
             'The `audio` element plays sound files. It also supports `controls`, `source`, and fallback text. Keep audio short and provide a transcript when the content matters.',
           language: 'html',
           code: `<audio controls>
-  <source src="theme.ogg" type="audio/ogg" />
-  <source src="theme.mp3" type="audio/mpeg" />
+  <source src="/media/theme.ogg" type="audio/ogg" />
+  <source src="/media/theme.mp3" type="audio/mpeg" />
   Your browser cannot play this audio.
 </audio>`,
         },
@@ -2236,10 +2236,10 @@ console.log(name);</code></pre>
             'A `track` element adds timed text to video or audio. `kind="captions"` includes sound effects and speaker information for deaf and hard-of-hearing viewers. `srclang` names the language, and `label` is the menu label.',
           language: 'html',
           code: `<video controls>
-  <source src="lesson.mp4" type="video/mp4" />
+  <source src="/media/lesson.mp4" type="video/mp4" />
   <track
     kind="captions"
-    src="lesson-en.vtt"
+    src="/media/lesson-en.vtt"
     srclang="en"
     label="English captions"
     default
@@ -2269,7 +2269,7 @@ console.log(name);</code></pre>
           code: `<video
   controls
   width="640"
-  poster="/media/lesson-poster.jpg"
+  poster="/images/photo.jpg"
 >
   <source src="/media/lesson.mp4" type="video/mp4" />
   Your browser cannot play this video.
@@ -2439,7 +2439,7 @@ console.log(name);</code></pre>
           content:
             'Images need alt text that describes their purpose. Form controls need labels connected with `for` and `id`. Icon-only buttons need an accessible name, for example with `aria-label`.',
           language: 'html',
-          code: `<img src="chart.png" alt="Sales rose from 10 to 25 in June" />
+          code: `<img src="/images/chart.png" alt="Sales rose from 10 to 25 in June" />
 
 <label for="email">Email address</label>
 <input id="email" name="email" type="email" />
@@ -2628,7 +2628,7 @@ console.log(name);</code></pre>
             'An image with a fixed width can overflow a narrow screen. CSS `max-width: 100%` lets it shrink while `height: auto` keeps its proportions. The HTML still supplies width and height to reserve space.',
           language: 'html',
           code: `<img
-  src="photo.jpg"
+  src="/images/photo.jpg"
   alt="A mountain trail"
   width="800"
   height="600"
@@ -2643,8 +2643,8 @@ console.log(name);</code></pre>
             'High-density screens need more pixels. `srcset` lists several files with width descriptors, and `sizes` tells the browser how wide the image will appear. The browser downloads the smallest file that will look sharp.',
           language: 'html',
           code: `<img
-  src="photo-800.jpg"
-  srcset="photo-400.jpg 400w, photo-800.jpg 800w, photo-1600.jpg 1600w"
+  src="/images/photo-800.jpg"
+  srcset="/images/photo-400.jpg 400w, /images/photo-800.jpg 800w, /images/photo-1600.jpg 1600w"
   sizes="(min-width: 800px) 50vw, 100vw"
   alt="A mountain trail"
 />
@@ -2657,9 +2657,9 @@ console.log(name);</code></pre>
             'Use `picture` when different screens need a different composition, not just a different resolution. Each `source` can have a media condition. The `img` inside is the fallback and still needs alt text.',
           language: 'html',
           code: `<picture>
-  <source media="(min-width: 900px)" srcset="hero-wide.jpg" />
-  <source media="(max-width: 600px)" srcset="hero-square.jpg" />
-  <img src="hero-default.jpg" alt="A mountain landscape" />
+  <source media="(min-width: 900px)" srcset="/images/mountains-wide.jpg" />
+  <source media="(max-width: 600px)" srcset="/images/mountains-small.jpg" />
+  <img src="/images/mountains.jpg" alt="A mountain landscape" />
 </picture>`,
         },
         {
@@ -2816,7 +2816,7 @@ console.log(name);</code></pre>
 <p>Text</p>
 
 <!-- Void elements: no closing tag -->
-<img src="photo.jpg" alt="A trail" />
+<img src="/images/photo.jpg" alt="A trail" />
 <br />
 <input id="name" name="name" type="text" />`,
         },

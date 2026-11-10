@@ -220,7 +220,7 @@ export const htmlPractice: Record<
       title: 'Add playback controls',
       instructions: 'Type the attribute that shows the video controls.',
       template: `<video {{controls}}>
-  <source src="movie.mp4" type="video/mp4">
+  <source src="/media/lesson.mp4" type="video/mp4">
 </video>`,
       blanks: [{ id: 'controls', answers: ['controls'], hint: 'The attribute that shows playback controls.' }],
       explanation: 'The controls attribute shows play, pause, and volume controls.',
@@ -249,7 +249,7 @@ export const htmlPractice: Record<
       title: 'Set up responsive images',
       instructions: 'Type the viewport name and the image candidate attribute.',
       template: `<meta name="{{viewport}}" content="width=device-width, initial-scale=1">
-<img src="photo.jpg" {{srcset}}="photo-2x.jpg 2x" alt="A mountain">`,
+<img src="/images/photo.jpg" {{srcset}}="/images/photo-800.jpg 2x" alt="A mountain">`,
       blanks: [
         { id: 'viewport', answers: ['viewport'], hint: 'The name value for the mobile viewport meta tag.' },
         { id: 'srcset', answers: ['srcset'], hint: 'The attribute that lists image candidates for different resolutions.' },
