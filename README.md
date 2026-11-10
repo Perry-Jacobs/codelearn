@@ -58,27 +58,18 @@ This is a static Vite SPA. `public/_redirects` is copied into `dist/` so
 Cloudflare Pages serves `index.html` for deep links such as
 `/languages/html/lessons/lists`.
 
-### Option A — GitHub Actions (recommended)
+### Option A — connect the repository in Cloudflare (recommended)
 
 1. Push the project to GitHub.
-2. Create a Cloudflare API token at
-   <https://dash.cloudflare.com/profile/api-tokens>. The token needs
-   **Account → Cloudflare Pages → Edit** permission.
-3. Add the repository secrets:
+2. In the Cloudflare dashboard, open **Workers & Pages → Create → Pages →
+   Connect to Git** and select the repository.
+3. Use these build settings:
+   - Framework preset: **Vite**
+   - Build command: `npm run build`
+   - Build output directory: `dist`
+4. Save and deploy. Cloudflare rebuilds on every push to the production branch.
 
-   ```bash
-   gh secret set CLOUDFLARE_API_TOKEN
-   gh secret set CLOUDFLARE_ACCOUNT_ID
-   ```
-
-   Find the account ID in the Cloudflare dashboard URL, or run
-   `npx wrangler whoami`.
-4. Push to `main`. `.github/workflows/deploy-cloudflare.yml` installs,
-   lints, builds, and deploys `dist/` to the `codelearn` Pages project.
-
-To use a different Pages project name, change `--project-name=codelearn`
-in `.github/workflows/deploy-cloudflare.yml` and in
-`scripts/deploy-cloudflare.sh`.
+No API tokens or repository secrets are needed with this setup.
 
 ### Option B — deploy from your machine
 
