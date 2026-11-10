@@ -1,0 +1,402 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans:
+    'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    sans-serif;
+  --font-mono:
+    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-zinc-950 font-sans text-zinc-300 antialiased;
+  }
+
+  ::selection {
+    background-color: rgb(56 189 248 / 0.28);
+    color: #fff;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(63 63 70) transparent;
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(56 189 248 / 0.65);
+    outline-offset: 2px;
+  }
+}
+
+/* Subtle dotted/grid backdrop used behind hero sections. */
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.045) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Lesson step progress and quiz-completion motion. */
+@keyframes lesson-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes lesson-check-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.55);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes confetti-piece {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(0.4);
+  }
+}
+
+@keyframes step-check-in {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes lesson-progress-flash {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  40% {
+    filter: brightness(1.65);
+  }
+}
+
+.lesson-toast {
+  animation: lesson-toast-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.lesson-complete-ring {
+  animation: lesson-check-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.confetti-piece {
+  top: 0;
+  left: 0;
+  animation: confetti-piece 0.9s ease-out both;
+}
+
+.step-check {
+  display: inline-block;
+  animation: step-check-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.lesson-progress-complete {
+  animation: lesson-progress-flash 1s ease-out;
+}
+
+/* HTML quiz carousel celebration: gift box + ka-boom burst. */
+@keyframes quiz-result-pop {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes quiz-gift-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.35) rotate(-8deg);
+  }
+  55% {
+    opacity: 1;
+    transform: scale(1.12) rotate(3deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes quiz-gift-lid {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  45% {
+    transform: translateY(-20px) rotate(-9deg);
+  }
+  100% {
+    transform: translateY(-5px) rotate(-3deg);
+  }
+}
+
+@keyframes quiz-gift-confetti {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy)))
+      rotate(var(--rot)) scale(0.25);
+  }
+}
+
+@keyframes quiz-kaboom {
+  0% {
+    opacity: 0;
+    transform: scale(0.45) rotate(-10deg);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.14) rotate(3deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.quiz-result-pop {
+  animation: quiz-result-pop 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.quiz-gift-scene {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 132px;
+  height: 122px;
+  flex-shrink: 0;
+}
+
+.quiz-gift-box {
+  position: relative;
+  width: 72px;
+  height: 62px;
+  animation: quiz-gift-pop 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.quiz-gift-body {
+  position: absolute;
+  inset: 12px 0 0;
+  border-radius: 0 0 10px 10px;
+  background: var(--gift-accent);
+  box-shadow: inset 0 -8px 0 rgb(0 0 0 / 0.16);
+}
+
+.quiz-gift-lid {
+  position: absolute;
+  top: 0;
+  left: -6px;
+  width: 84px;
+  height: 18px;
+  border-radius: 6px;
+  background: var(--gift-accent);
+  box-shadow: inset 0 -4px 0 rgb(0 0 0 / 0.16);
+  animation: quiz-gift-lid 0.9s 0.12s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  z-index: 2;
+}
+
+.quiz-gift-ribbon {
+  position: absolute;
+  top: 12px;
+  bottom: 0;
+  left: 50%;
+  width: 10px;
+  transform: translateX(-50%);
+  background: #fbbf24;
+  z-index: 1;
+}
+
+.quiz-gift-bow {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  width: 38px;
+  height: 20px;
+  transform: translateX(-50%);
+  z-index: 3;
+}
+
+.quiz-gift-bow::before,
+.quiz-gift-bow::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 19px;
+  height: 20px;
+  border-radius: 50% 50% 50% 0;
+  background: #fbbf24;
+}
+
+.quiz-gift-bow::before {
+  left: 0;
+  transform: rotate(-28deg);
+}
+
+.quiz-gift-bow::after {
+  right: 0;
+  transform: rotate(28deg) scaleX(-1);
+}
+
+.quiz-gift-confetti-piece {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  animation: quiz-gift-confetti 1s 0.12s ease-out both;
+}
+
+.quiz-gift-kaboom {
+  position: absolute;
+  top: 2px;
+  right: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-shadow: 0 0 16px currentColor;
+  animation: quiz-kaboom 0.55s 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* Syntax highlighting (highlight.js token classes). */
+.hljs {
+  color: #d4d4d8;
+  background: transparent;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #71717a;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-literal,
+.hljs-section,
+.hljs-doctag {
+  color: #c084fc;
+}
+
+.hljs-string,
+.hljs-attr,
+.hljs-template-variable,
+.hljs-addition {
+  color: #86efac;
+}
+
+.hljs-number,
+.hljs-symbol,
+.hljs-bullet {
+  color: #fbbf24;
+}
+
+.hljs-title,
+.hljs-title.function_,
+.hljs-title.class_,
+.hljs-name {
+  color: #7dd3fc;
+}
+
+.hljs-built_in,
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #67e8f9;
+}
+
+.hljs-variable,
+.hljs-params {
+  color: #f0abfc;
+}
+
+.hljs-attribute {
+  color: #7dd3fc;
+}
+
+.hljs-tag {
+  color: #f9a8d4;
+}
+
+.hljs-meta,
+.hljs-meta .hljs-keyword {
+  color: #94a3b8;
+}
+
+.hljs-selector-tag {
+  color: #f9a8d4;
+}
+
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-builtin-name {
+  color: #fdba74;
+}
+
+.hljs-selector-pseudo {
+  color: #f0abfc;
+}
+
+.hljs-deletion {
+  color: #fca5a5;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: 600;
+}
+

@@ -1,0 +1,12 @@
+/* Small stylesheet used by the HTML metadata examples in the live preview. */
+body {
+  margin: 1.5rem;
+  color: #1f2937;
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+h1,
+h2 {
+  color: #0f172a;
+}
